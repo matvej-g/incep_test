@@ -5,6 +5,12 @@ services:
       ports:
         - "80:80"
         - "443:443"
+      user: "${UID}:${GID}"
+      volumes:
+        - ./web:/var/www/html
     wordpress:
       build: ./requirements/wordpress/.
       container_name: wp-php
+      user: "${UID}:${GID}"
+      volumes:
+        - ./web:/var/www/html
