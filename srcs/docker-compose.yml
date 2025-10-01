@@ -1,0 +1,37 @@
+services:
+    nginx:
+      build: ./requirements/nginx/.
+      container_name: nginx
+      ports:
+        - "443:443"
+      volumes:
+        - ./../secrets/nginx.crt:/etc/nginx/ssl/nginx.crt:ro
+        - ./../secrets/nginx.key:/etc/nginx/ssl/nginx.key:ro
+        - /home/matvejg/Inception/wp-db:/var/www/html
+      networks:
+        - inception
+      depends_on:
+        - wordpress
+      restart: always
+    wordpress:
+      build: ./requirements/wordpress/.
+      container_name: wp-php
+      volumes:
+        - /home/matvejg/Inception/wp-db:/var/www/html
+      networks:
+        - inception
+      depends_on:
+        - mariadb
+      restart: always
+    mariadb:
+      build: ./requirements/mariadb/.
+      container_name: mariadb
+      volumes:
+        - /home/matvejg/Inception/db:/var/lib/mysql
+      networks:
+        - inception
+      restart: always
+
+networks:
+  inception:
+    driver: bridge
