@@ -15,7 +15,18 @@ services:
       restart: always
     wordpress:
       build: ./requirements/wordpress/.
-      container_name: wp-php
+      container_name: wordpress
+      environment:
+        - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}:3306
+        - WORDPRESS_DB_NAME=${WP_DB_NAME}
+        - WORDPRESS_DB_USER=${WP_DB_USER}
+        - WORDPRESS_ADMIN_USER=${WP_ADMIN_USER}
+        - WORDPRESS_USER=${WP_USER}
+        - DOMAIN_NAME=${DOMAIN_NAME}
+      secrets:
+        - db_password
+        - wp_root_password
+        - wp_user_password
       volumes:
         - /home/matvejg/Inception/wp-db:/var/www/html
       networks:
@@ -26,6 +37,11 @@ services:
     mariadb:
       build: ./requirements/mariadb/.
       container_name: mariadb
+      environment:
+        - MARIADB_DATABASE=${WP_DB_NAME}
+        - MARIADB_USER=${WP_DB_USER}
+      secrets:
+        - db_password
       volumes:
         - /home/matvejg/Inception/db:/var/lib/mysql
       networks:
@@ -35,3 +51,11 @@ services:
 networks:
   inception:
     driver: bridge
+
+secrets:
+  wp_root_password:
+    file: ./../secrets/wp_root_password.txt
+  wp_user_password:
+    file: ./../secrets/wp_user_password.txt
+  db_password:
+    file: ./../secrets/db_password.txt
