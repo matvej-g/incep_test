@@ -1,13 +1,15 @@
 services:
     nginx:
-      build: ./requirements/nginx/.
+      build:
+        context: ./
+        dockerfile: requirements/nginx/Dockerfile
       container_name: nginx
       ports:
         - "443:443"
       volumes:
         - ./../secrets/nginx.crt:/etc/nginx/ssl/nginx.crt:ro
         - ./../secrets/nginx.key:/etc/nginx/ssl/nginx.key:ro
-        - /home/matvejg/Inception/wp-db:/var/www/html
+        - /home/mgering/Inception/wp-db:/var/www/html
       networks:
         - inception
       depends_on:
@@ -28,7 +30,7 @@ services:
         - wp_root_password
         - wp_user_password
       volumes:
-        - /home/matvejg/Inception/wp-db:/var/www/html
+        - /home/mgering/Inception/wp-db:/var/www/html
       networks:
         - inception
       depends_on:
@@ -43,7 +45,7 @@ services:
       secrets:
         - db_password
       volumes:
-        - /home/matvejg/Inception/db:/var/lib/mysql
+        - /home/mgering/Inception/db:/var/lib/mysql
       networks:
         - inception
       restart: always

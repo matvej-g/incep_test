@@ -24,7 +24,7 @@ server {
 
 	# SSL configuration
 	#
-	listen 443 ssl default_server;
+  listen 443 ssl default_server;
   listen [::]:443 ssl default_server;
 
   ssl_certificate /etc/nginx/ssl/nginx.crt;
@@ -74,6 +74,16 @@ server {
 	#}
 }
 
+server {
+    listen 443 ssl;
+    server_name static.mgering.42.fr;
+
+    ssl_certificate /etc/nginx/ssl/nginx.crt;
+    ssl_certificate_key /etc/nginx/ssl/nginx.key;
+
+    root /var/www/static;
+    index index.html;
+}
 
 # Virtual Host configuration for example.com
 #

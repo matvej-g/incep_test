@@ -11,4 +11,6 @@ COPY conf/init.sh .
 
 RUN chmod +x init.sh
 
+EXPOSE 9000
+
 CMD ["./init.sh"]

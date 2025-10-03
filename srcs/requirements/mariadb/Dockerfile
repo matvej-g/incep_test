@@ -14,6 +14,7 @@ RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/db_init.sh \
     && mkdir -p /run/mysqld \
     && chown -R mysql:mysql /run/mysqld /var/lib/mysql
 
+EXPOSE 3306
 # entrypoint is the "main program"
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 # CMD is optional here; entrypoint script launches mysqld itself

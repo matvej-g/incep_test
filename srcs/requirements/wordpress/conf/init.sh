@@ -57,15 +57,15 @@ if ! wp core is-installed --allow-root --path="$WEBROOT"; then
     --title="My Inception" \
     --admin_user="$WORDPRESS_ADMIN_USER" \
     --admin_password="$ADMIN_PASS" \
-    --admin_email="mgering_root@${DOMAIN_NAME}.fr" \
+    --admin_email="mgering_root@${DOMAIN_NAME}" \
     --skip-email \
     --allow-root \
     --path="$WEBROOT"
 fi
 
 if ! wp user get "$WORDPRESS_USER" --field=ID --allow-root --path="$WEBROOT" >/dev/null 2>&1; then
-  wp user create "$WORDPRESS_USER" "mgering@${DOMAIN_NAME}.fr" \
-    --role=editor \
+  wp user create "$WORDPRESS_USER" "mgering@${DOMAIN_NAME}" \
+    --role=author \
     --user_pass="$USER_PASS" \
     --allow-root \
     --path="$WEBROOT"
