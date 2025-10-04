@@ -8,9 +8,8 @@ COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 # Entry + init
 COPY conf/entrypoint.sh /usr/local/bin/entrypoint.sh
-COPY conf/db_init.sh     /usr/local/bin/db_init.sh
 
-RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/db_init.sh \
+RUN chmod +x /usr/local/bin/entrypoint.sh \
     && mkdir -p /run/mysqld \
     && chown -R mysql:mysql /run/mysqld /var/lib/mysql
 
